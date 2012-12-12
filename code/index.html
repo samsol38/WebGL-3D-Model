@@ -1,0 +1,1345 @@
+<html>
+    <head>
+        <title>3D Modeling</title>
+        <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+	
+	<script type="text/javascript" src="api/jscolor_picker/jscolor.js"></script>
+	<script type="text/javascript" src="api/raphaeljs/raphael-min.js"></script>  
+	
+	<script src="./api/jqueryui/jquery-1.8.2.min.js"></script>
+	<script src="./api/jqueryui/external/jquery.bgiframe-2.1.2.js"></script>
+	<script src="./api/jqueryui/ui/minified/jquery.ui.core.min.js"></script>
+	<script src="./api/jqueryui/ui/minified/jquery.ui.widget.min.js"></script>
+	<script src="./api/jqueryui/ui/minified/jquery.ui.mouse.min.js"></script>
+	<script src="./api/jqueryui/ui/minified/jquery.ui.draggable.min.js"></script>
+	<script src="./api/jqueryui/ui/minified/jquery.ui.tabs.min.js"></script>
+	<script src="./api/jqueryui/ui/minified/jquery.ui.slider.min.js"></script>
+	<script src="./api/jqueryui/ui/minified/jquery.ui.selectable.min.js"></script>
+	<script src="./api/jqueryui/ui/minified/jquery.ui.accordion.min.js"></script>
+	<script src="./api/jqueryui/ui/minified/jquery.ui.button.min.js"></script>
+	
+	<script type="text/javascript" src="./api/glge/glge-compiled.js"></script> 
+	
+	<script type="text/javascript" src="./api/atooltip/js/jquery.atooltip.min.js"></script>
+	<link type="text/css" href="./api/atooltip/css/atooltip.css" rel="stylesheet"  media="screen" />
+	
+	<link rel="stylesheet" href="./api/jqueryui/themes/base/jquery.ui.all.css">
+	<link rel="stylesheet" href="./css/rounded_table.css">
+	
+	
+	<style type="text/css">
+		body {
+			background-color: #000;
+			background-image:url(background/221.jpg);
+		 }
+	</style>
+		
+	<style type="text/css">  
+	            #camera-xy-plane-canvas {  
+	                width: 410px;  
+	                border: 1px solid #ddd;  
+	            }  
+	
+				#camera-yz-plane-canvas {  
+	                width: 410px;  
+	                border: 1px solid #ddd;  
+	            }
+	
+				#camera-zx-plane-canvas {  
+	                width: 410px;  
+	                border: 1px solid #ddd;  
+	            }
+	</style>
+	
+	
+	<style>  
+		div.box_shadow_border{
+			 	background:white; 
+			
+				box-shadow: 3px 3px 3px #888; 
+				-moz-box-shadow: 3px 3px 3px #888; 
+				-webkit-box-shadow: 3px 3px 3px #888; 
+				
+				-moz-border-radius: 5px; 
+				-webkit-border-radius: 5px; 
+				border-radius: 5px; 
+				
+				border: 1px solid #aaaaaa;
+		}
+		
+		div.sectionBox {
+			border: 0px solid #fff;
+			padding: 20px;
+		
+			border: 1px solid #aaaaaa;
+
+		   
+			border-radius: 5px;
+			-webkit-border-radius: 5px;
+			-moz-border-radius: 5px;
+		
+			box-shadow: 3px 3px 3px #888; 
+			-moz-box-shadow: 3px 3px 3px #888; 
+			-webkit-box-shadow: 3px 3px 3px #888;
+			
+		}
+		
+		div.contactBox {
+			border: 0px solid #fff;
+			padding: 2px;
+		
+			border: 1px solid #aaaaaa;
+
+		   
+			border-radius: 5px;
+			-webkit-border-radius: 5px;
+			-moz-border-radius: 5px;
+		
+			box-shadow: 3px 3px 3px #888; 
+			-moz-box-shadow: 3px 3px 3px #888; 
+			-webkit-box-shadow: 3px 3px 3px #888;
+			
+		}
+		
+		div.wrapper {
+		            height: 100%;
+		            overflow: auto;
+		          }
+		
+		iframe.contactBox {
+			border: 0px solid #fff;
+			padding: 10px;
+		
+			border: 1px solid #aaaaaa;
+
+		   
+			border-radius: 5px;
+			-webkit-border-radius: 5px;
+			-moz-border-radius: 5px;
+		
+			box-shadow: 3px 3px 3px #888; 
+			-moz-box-shadow: 3px 3px 3px #888; 
+			-webkit-box-shadow: 3px 3px 3px #888;
+			
+		}
+	</style>
+	
+	<style>
+		#xrotcameraslider  {
+			width:60%; float:left;
+		}
+		#yrotcameraslider  {
+			width:60%; float:left;
+		}
+		#zrotcameraslider  {
+			width:60%; float:left;
+		}
+		
+		#xrotslider  {
+			width:70%; float:left;
+		}
+		#yrotslider  {
+			width:70%; float:left;
+		}
+		#zrotslider  {
+			width:70%; float:left;
+		}
+		
+		#xscaleslider  {
+			width:70%; float:left;
+		}
+		#yscaleslider  {
+			width:70%; float:left;
+		}
+		#zscaleslider  {
+			width:70%; float:left;
+		}
+	</style>
+	
+	<script>
+		$(function() {
+			$( "button", ".reset_Camera" ).button();
+			$( "button", ".reset_Camera" ).click(function(){
+				 	resetCamera();
+			});
+		});
+	</script>
+	
+	<script>
+		$(function() {
+			$( "button", ".reset_Object" ).button();
+			$( "button", ".reset_Object" ).click(function(){
+				 	resetObject();
+			});
+		});
+	</script>
+	
+	<script>
+		$(function() {
+			$( "#accordion" ).accordion({
+				autoHeight: false,
+				navigation: true
+			});
+		});
+	</script>
+	
+	<script>
+		$(function() {
+			$( "#accordionTexture" ).accordion({
+				autoHeight: false,
+				navigation: true,
+				fillSpace: true
+			});
+		});
+	</script>
+	
+	<script>
+		$(function() {
+			
+			$("#accordionAboutMe").accordion({
+				fillSpace: true
+			});
+			
+		});
+	</script>
+	
+	<style>
+	
+		#feedback { font-size: 1.4em; }
+		#selectable .ui-selecting { background: #FECA40; }
+		#selectable .ui-selected { background: #F39814; color: white; }
+		#selectable { list-style-type: none; margin: 0; padding: 0; }
+		#selectable li { margin: 9px; padding: 7px; float: left; width: 95px; height: 80px; }
+	</style>
+	
+	<style>
+		#feedback { font-size: 1.4em; }
+		#objectsSelection .ui-selecting { background: #FECA40; }
+		#objectsSelection .ui-selected { background: #F39814; color: white; }
+		#objectsSelection { list-style-type: none; margin: 0; padding: 0; }
+		#objectsSelection li { margin: 9px; padding: 7px; float: left; width: 95px; height: 80px; }
+	</style>
+	
+
+	<script>
+		$(function() {
+			$( "#selectable" ).selectable({
+			    selected: function(event, ui) {
+					objectMaterial = doc.getElement($(ui.selected).attr('id'));
+					meshObject.setMaterial(objectMaterial);
+			    }
+			});
+			
+		});
+	</script>
+	
+	<script>
+		$(function() {
+			$( "#objectsSelection" ).selectable({
+			
+			stop: function(e, ui) {
+                  	$(".ui-selected:first", this).each(function() {
+	
+			
+						var selectedObjectIndex = $(this).attr("id");
+						showSelectedObject(selectedObjectIndex);
+
+		           });
+				}
+		
+	  		});
+			
+		});
+	</script>
+		
+	<script>
+		$('#colorpickerField1, #colorpickerField2, #colorpickerField3').ColorPicker({
+			onSubmit: function(hsb, hex, rgb, el) {
+				$(el).val(hex);
+				$(el).ColorPickerHide();
+			},
+			onBeforeShow: function () {
+				$(this).ColorPickerSetColor(this.value);
+			}
+		})
+		.bind('keyup', function(){
+			$(this).ColorPickerSetColor(this.value);
+		});
+	</script>
+
+	<script>
+		$(function() {
+			$('#tabs').tabs().height(520);				
+		});
+	</script>
+		
+	<script>
+			$(function() {
+				$("#xrotcameraslider").slider({
+		    		orientation: "horizontal",
+					range: "min",
+					animate: true,
+					value: parseFloat(0)*Math.PI/180,
+					min: 0,
+					max: 360,
+					step: 0.1,
+					slide: function( event, ui ) {
+						$( "#x-axis-cam-rot-label" ).val( ui.value + " Deg");
+						sceneCamera.setRotX(ui.value*Math.PI/180);
+						calc2DCameraRotation(1);
+						calc2DCameraRotation(2);
+					}
+				});
+				$( "#x-axis-cam-rot-label" ).val($( "#xrotcameraslider" ).slider( "value" ) + " Deg");
+			});
+	</script>
+		
+			<script>
+				$(function() {
+					$("#yrotcameraslider").slider({
+			    		orientation: "horizontal",
+						range: "min",
+						animate: true,
+						value: parseFloat(0)*Math.PI/180,
+						min: 0,
+						max: 360,
+						step: 0.1,
+						slide: function( event, ui ) {
+							$( "#y-axis-cam-rot-label" ).val( ui.value + " Deg");
+							sceneCamera.setRotY(ui.value*Math.PI/180);
+							calc2DCameraRotation(1);
+							calc2DCameraRotation(2);
+						}
+					});
+					$( "#y-axis-cam-rot-label" ).val($( "#yrotcameraslider" ).slider( "value" ) + " Deg");
+				});
+			</script>
+			
+				<script>
+					$(function() {
+						$("#zrotcameraslider").slider({
+				    		orientation: "horizontal",
+							range: "min",
+							animate: true,
+							value: parseFloat(0)*Math.PI/180,
+							min: 0,
+							max: 360,
+							step: 0.1,
+							slide: function( event, ui ) {
+								$( "#z-axis-cam-rot-label" ).val( ui.value + " Deg");
+								sceneCamera.setRotZ(ui.value*Math.PI/180);
+								calc2DCameraRotation(0);
+							}
+						});
+						$( "#z-axis-cam-rot-label" ).val($( "#zrotcameraslider" ).slider( "value" ) + " Deg");
+					});
+				</script>
+	
+		
+		<script>
+			$(function() {
+				$("#xrotslider").slider({
+		    		orientation: "horizontal",
+					range: "min",
+					animate: true,
+					value: 45,
+					min: 0,
+					max: 360,
+					step: 0.1,
+					slide: function( event, ui ) {
+						angleX = $( "#xrotslider" ).slider( "value" );
+						$( "#x-axis-rot" ).val( ui.value + " Deg");
+						meshObject.setRotX(ui.value*Math.PI/180);
+					}
+				});
+				$( "#x-axis-rot" ).val($( "#xrotslider" ).slider( "value" ) + " Deg");
+				angleX = $( "#xrotslider" ).slider( "value" );
+			});
+		</script>
+			
+		<script>
+			$(function() {
+				$("#yrotslider").slider({
+		    		orientation: "horizontal",
+					range: "min",
+					animate: true,
+					value: 45,
+					min: 0,
+					max: 360,
+					step: 0.1,
+					slide: function( event, ui ) {
+						angleY = $( "#yrotslider" ).slider( "value" );
+						$( "#y-axis-rot" ).val( ui.value + " Deg");
+						meshObject.setRotY(ui.value*Math.PI/180);
+					}
+				});
+				$( "#y-axis-rot" ).val($( "#yrotslider" ).slider( "value" ) + " Deg");
+				angleY = $( "#yrotslider" ).slider( "value" );
+			});
+		</script>
+			
+		<script>
+			$(function() {
+				$("#zrotslider").slider({
+		    		orientation: "horizontal",
+					range: "min",
+					animate: true,
+					value: 0,
+					min: 0,
+					max: 360,
+					step: 0.1,
+					slide: function( event, ui ) {
+						$( "#z-axis-rot" ).val( ui.value + " Deg");
+						meshObject.setRotZ(ui.value*Math.PI/180);
+					}
+				});
+				$( "#z-axis-rot" ).val($( "#zrotslider" ).slider( "value" ) + " Deg");
+			});
+		</script>
+		
+		
+		
+		<script>
+			$(function() {
+				$("#xscaleslider").slider({
+		    		orientation: "horizontal",
+					range: "min",
+					animate: true,
+					value: 3,
+					min: 0.2,
+					max: 5,
+					step: 0.01,
+					slide: function( event, ui ) {
+						$( "#x-axis-scale" ).val( ui.value);
+						meshObject.setScaleX(ui.value);
+					}
+				});
+				$( "#x-axis-scale" ).val($( "#xscaleslider" ).slider( "value" ));
+			});
+		</script>
+			
+		<script>
+			$(function() {
+				$("#yscaleslider").slider({
+		    		orientation: "horizontal",
+					range: "min",
+					animate: true,
+					value: 3,
+					min: 0.2,
+					max: 5,
+					step: 0.01,
+					slide: function( event, ui ) {
+						$( "#y-axis-scale" ).val( ui.value);
+						meshObject.setScaleY(ui.value);
+					}
+				});
+				$( "#y-axis-scale" ).val($( "#yscaleslider" ).slider( "value" ) );
+			});
+		</script>
+			
+		<script>
+			$(function() {
+				$("#zscaleslider").slider({
+		    		orientation: "horizontal",
+					range: "min",
+					animate: true,
+					value: 3,
+					min: 0.2,
+					max: 5,
+					step: 0.01,
+					slide: function( event, ui ) {
+						$( "#z-axis-scale" ).val( ui.value);
+						meshObject.setScaleZ(ui.value);
+					}
+				});
+				$( "#z-axis-scale" ).val($( "#zscaleslider" ).slider( "value" ));
+			});
+		</script>
+		
+	<script>
+	    $(function(){  
+	      
+	        $('a.normalTip').aToolTip();  
+
+	        $('a.fixedTip').aToolTip({  
+	            fixed: true  
+	        });  
+
+	    });
+	</script>
+	
+	<style type="text/css">
+	
+		header{
+			position:absolute; 
+			top:0px; left:0;
+			width:100%;
+			height:46px;
+			background-color:#272e34;
+			border-bottom:1px solid #444;
+			padding:0;
+			
+			background-image: -webkit-gradient(
+					linear,
+					left bottom,
+					left top,
+					color-stop(0.25, rgba(128,128,128,0.8)),
+					color-stop(1, rgba(204,204,204,0.8))
+				);
+				    background-image: -moz-linear-gradient(
+				    center bottom,
+				    rgba(110,110,110,0.8) 25%,
+				    rgba(220,220,220,0.8) 100%
+				);
+				-moz-box-shadow: 0px 5px 5px #333;
+				-webkit-box-shadow: 0px 5px 5px #333;
+				box-shadow: 0px 5px 5px #333;
+			}
+
+		header, footer{
+			font-size:20px;
+			text-align:center;
+			color:#eee;
+			text-shadow:0 2px 0 rgba(0,0,0,0.5);
+			line-height:45px;
+		}
+		
+	</style>
+	
+	<script type="text/javascript">
+	var doc = new GLGE.Document();
+	var meshObject = null;
+	var sceneCamera = null;
+
+	var renderer = null;
+	var scene = null;
+	var angleX, angleY;
+	var oldX, oldY;
+	var newX, newY;
+	var mouse;
+	var mouseovercanvas, mousedown;
+	var objectMaterial;
+	
+	var roomObject = null;
+	
+	var sceneObjectsArray = null;
+	var sceneLights = null;
+	
+	var paperArray;
+	var cameraArray;
+	var cameraEyeArray;
+	
+	var camera_plane_width = 410; 
+	var camera_plane_height = 180;
+	
+	var Render3D_View_Width = 540;
+	var Render3D_View_Height = 530;
+	
+	var diffCamX = 540/camera_plane_height;
+	var diffCamY = 530/camera_plane_width;
+	
+	var circleEyeRadius = 7;
+	var circleEyeOwnRadius = 1;
+	
+	doc.onLoad = function() {
+		mouse=new GLGE.MouseInput(document.getElementById('canvas'));
+		renderer = new GLGE.Renderer(document.getElementById("canvas"));
+		
+		scene = doc.getElement("mainscene");
+
+		sceneCamera = scene.getCamera();
+		renderer.setScene(scene);
+		
+		angleX = 45;
+		angleY = 45;
+		
+		sceneObjectsArray = scene.getObjects();
+		sceneLights = scene.getLights();
+		
+		roomObject = sceneObjectsArray[sceneObjectsArray.length-1];
+		
+		for(var i=0; i<sceneObjectsArray.length-1; i++){
+			sceneObjectsArray[i].setRotX(angleX*Math.PI/180);
+			sceneObjectsArray[i].setRotY(angleY*Math.PI/180);
+		}
+		
+		showSelectedObject(0);
+		
+		objectMaterial = meshObject.getMaterial();
+		
+		paperArray = new Array();
+		cameraArray = new Array();
+		cameraEyeArray = new Array();
+		
+		initCanvas("camera-xy-plane-canvas");
+		initCanvas("camera-yz-plane-canvas");
+		initCanvas("camera-zx-plane-canvas");
+		
+		function render() {
+			renderer.render();
+		}
+
+		setInterval(render, 1);
+		
+		var drag=false;
+		var view=false;
+		var rotY=0;
+		var startpoint;
+		
+		var difAngle = 0.5;
+		canvas.onmousedown=function(e){
+			if(e.button==0){
+		        view=true;
+		        startpoint=[e.clientX, e.clientY];
+			}
+			
+		}
+		canvas.onmouseup=function(e){
+			view=false;
+		}
+		canvas.onmousemove=function(e){
+
+			if(view){
+				if((e.clientY-startpoint[1]) != 0.0000){
+					angleX += (e.clientY-startpoint[1])*difAngle;
+					
+					if(angleX<0){
+						angleX = 360;
+					}
+					if(angleX>360){
+						angleX = 0;
+					}
+					
+		    		meshObject.setRotX(angleX*Math.PI/180);
+					startpoint[1] = e.clientY;
+					
+					$('#xrotslider').slider("value", angleX);
+					$( "#x-axis-rot" ).val($( "#xrotslider" ).slider( "value" ) + " Deg");
+						
+				}
+		
+				if((e.clientX-startpoint[0]) != 0.0000){
+					angleY += (e.clientX-startpoint[0])*difAngle;
+					
+					if(angleY<0){
+						angleY = 360;
+					}
+					if(angleY>360){
+						angleY = 0;
+					}
+					
+		    		meshObject.setRotY(angleY*Math.PI/180);
+					startpoint[0] = e.clientX;
+					
+					$('#yrotslider').slider("value", angleY);
+					$( "#y-axis-rot" ).val($( "#yrotslider" ).slider( "value" ) + " Deg");
+				}
+	
+			}
+		}
+
+		canvas.oncontextmenu=function(e){
+			return false;
+		}
+
+	}
+
+	doc.load("scene.xml");
+	</script>
+	
+	<script type="text/javascript">
+	
+	function setAllSliderValue(objectIndex) {
+   		$('#xrotslider').slider("value", angleX);
+		$('#yrotslider').slider("value", angleY);
+		
+		$('#xrotslider').slider("value", parseFloat(sceneObjectsArray[objectIndex].getRotX())*180.0/Math.PI);
+		$('#yrotslider').slider("value", parseFloat(sceneObjectsArray[objectIndex].getRotY())*180.0/Math.PI);
+		$('#zrotslider').slider("value", parseFloat(sceneObjectsArray[objectIndex].getRotZ())*180.0/Math.PI);
+		
+		$( "#x-axis-rot" ).val($( "#xrotslider" ).slider( "value" ) + " Deg");
+		$( "#y-axis-rot" ).val($( "#yrotslider" ).slider( "value" ) + " Deg");
+		$( "#z-axis-rot" ).val($( "#zrotslider" ).slider( "value" ) + " Deg");
+		
+		$('#xscaleslider').slider("value", parseFloat(sceneObjectsArray[objectIndex].getScaleX()));
+		$('#yscaleslider').slider("value", parseFloat(sceneObjectsArray[objectIndex].getScaleY()));
+		$('#zscaleslider').slider("value", parseFloat(sceneObjectsArray[objectIndex].getScaleZ()));
+		
+		$( "#x-axis-scale" ).val($( "#xscaleslider" ).slider( "value" ));
+		$( "#y-axis-scale" ).val($( "#yscaleslider" ).slider( "value" ));
+		$( "#z-axis-scale" ).val($( "#zscaleslider" ).slider( "value" ));
+		
+		
+	}
+	
+	function showSelectedObject(objectIndex){
+		hideAllObjects();
+		sceneObjectsArray[objectIndex].setVisible(true);
+		meshObject = sceneObjectsArray[objectIndex];
+		
+		angleX = parseFloat(meshObject.getRotX())*180.0/Math.PI;
+		angleY = parseFloat(meshObject.getRotY())*180.0/Math.PI;
+		
+		setAllSliderValue(objectIndex);
+	}
+	
+	function hideAllObjects(){
+		for(var i=0; i<sceneObjectsArray.length-1; i++){
+			sceneObjectsArray[i].setVisible(false);
+		}
+	}
+	
+	function updateAmbientLight(color) {
+		var charArray = color.split('')
+		var color3Digit = "#" + charArray[0] + charArray[2] + charArray[4];
+		scene.setAmbientColor(color3Digit);
+	}
+	
+	function updateBackGroundColor(color) {
+		var charArray = color.split('')
+		var color3Digit = "#" + charArray[0] + charArray[2] + charArray[4];
+		scene.setBackgroundColor(color3Digit);
+	}
+	
+	function updateSpotLight(color, lightIndex) {
+		var charArray = color.split('')
+		var color3Digit = "#" + charArray[0] + charArray[2] + charArray[4];
+		sceneLights[lightIndex].setColor(color3Digit);
+	}
+	
+	function enableSpotLight(enableFlag, spotLightTag, lightIndex){
+		if(!enableFlag){
+			sceneLights[lightIndex].disableLight();
+		}
+		else{
+			sceneLights[lightIndex].enableLight();
+		}
+		
+		document.getElementById(spotLightTag).disabled = !enableFlag;
+	}
+	
+	
+	function setFogColor(color) {
+		var charArray = color.split('')
+		var color3Digit = "#" + charArray[0] + charArray[2] + charArray[4];
+		sceneLights[2].setBackgroundColor(color3Digit);
+	}
+	
+	function setRoomVisibility(visibleFlag){
+		roomObject.setVisible(!visibleFlag);
+		document.getElementById("backGroundcolor").disabled = !visibleFlag;
+	}
+	
+	function setCamera(index) {
+		
+		var selectedCamera = null;
+		switch(index){
+			case 0:
+				selectedCamera = GLGE.C_PERSPECTIVE;
+			break;
+			case 1:
+				selectedCamera = GLGE.C_ORTHO;
+			break;
+		}
+		
+		sceneCamera.setType(selectedCamera);
+	}
+	
+	function initCanvas(canvasID){
+		
+		var xyzCamPosition = null;
+		
+		var currentCanvasID = canvasID;
+		
+		var paper = new Raphael(document.getElementById(canvasID), camera_plane_width, camera_plane_height);  
+		var grid_image = paper.image("api/raphaeljs/grid_image.svg", 0, 0, camera_plane_width, camera_plane_height);
+		
+		var startCirclePt = null;
+		var renderFlag = false;
+		
+		var currentValueX;
+		var currentValueY;
+		
+		var circle;
+		var circleEye;
+		var boxRect = paper.rect(camera_plane_width/2-5.5, camera_plane_height/2-1, 12, 12);
+		var textArray = new Array();
+		
+		var fontColor = "#000";
+		var fontfamily = "Verdana";
+		var fontsize = 12;
+		
+		if(currentCanvasID == "camera-xy-plane-canvas"){
+			
+			paperArray[0] = paper;
+				
+			textArray[0] = paper.text(10, camera_plane_height/2+15, "-X");
+			textArray[0].attr({fill: fontColor, "font-family": fontfamily, "font-size": fontsize});
+			
+			textArray[1] = paper.text(camera_plane_width-11, camera_plane_height/2+15, "+X");
+			textArray[1].attr({fill: fontColor, "font-family": fontfamily, "font-size": fontsize});
+			
+			textArray[2] = paper.text(camera_plane_width/2+10, camera_plane_height-10, "-Y");
+			textArray[2].attr({fill: fontColor, "font-family": fontfamily, "font-size": fontsize});
+			
+			textArray[3] = paper.text(camera_plane_width/2+10, 11, "+Y");
+			textArray[3].attr({fill: fontColor, "font-family": fontfamily, "font-size": fontsize});
+			
+			currentValueX = parseFloat(sceneCamera.getLocX())*diffCamX;
+			currentValueY = parseFloat(sceneCamera.getLocY())*diffCamY;
+			circle = paper.circle(currentValueX + camera_plane_width/2 , -(currentValueY - camera_plane_height/2-5), 5);
+			circleEye = paper.circle(currentValueX + camera_plane_width/2 + 0*Math.cos(parseFloat(-sceneCamera.getRotZ())) ,
+						-(currentValueY - camera_plane_height/2-5) + 0*Math.sin(parseFloat(-sceneCamera.getRotZ())), 
+							circleEyeOwnRadius);
+			
+			cameraArray[0] = circle;
+			cameraEyeArray[0] = circleEye;
+			
+		}else if(currentCanvasID == "camera-yz-plane-canvas"){
+			paperArray[1] = paper;
+			
+			textArray[0] = paper.text(10, camera_plane_height/2+15, "+Z");
+			textArray[0].attr({fill: fontColor, "font-family": fontfamily, "font-size": fontsize});
+			
+			textArray[1] = paper.text(camera_plane_width-11, camera_plane_height/2+15, "-Z");
+			textArray[1].attr({fill: fontColor, "font-family": fontfamily, "font-size": fontsize});
+			
+			textArray[2] = paper.text(camera_plane_width/2+10, camera_plane_height-10, "-Y");
+			textArray[2].attr({fill: fontColor, "font-family": fontfamily, "font-size": fontsize});
+			
+			textArray[3] = paper.text(camera_plane_width/2+10, 11, "+Y");
+			textArray[3].attr({fill: fontColor, "font-family": fontfamily, "font-size": fontsize});
+			
+			currentValueX = parseFloat(sceneCamera.getLocZ())*diffCamX;
+			currentValueY = parseFloat(sceneCamera.getLocY())*diffCamY;
+			circle = paper.circle(-(currentValueX - camera_plane_width/2), -(currentValueY - camera_plane_height/2-5), 5);
+			circleEye = paper.circle(-(currentValueX - camera_plane_width/2) + circleEyeRadius*Math.cos(parseFloat(-sceneCamera.getRotX())) ,
+			 					   -(currentValueY - camera_plane_height/2-5) + circleEyeRadius*Math.sin(parseFloat(-sceneCamera.getRotX())), 
+			 					     circleEyeOwnRadius);
+			
+			cameraArray[1] = circle;
+			cameraEyeArray[1] = circleEye;
+			
+		}else if(currentCanvasID == "camera-zx-plane-canvas"){
+			
+			paperArray[2] = paper;
+			
+			textArray[0] = paper.text(10, camera_plane_height/2+15, "-X");
+			textArray[0].attr({fill: fontColor, "font-family": fontfamily, "font-size": fontsize});
+			
+			textArray[1] = paper.text(camera_plane_width-11, camera_plane_height/2+15, "+X");
+			textArray[1].attr({fill: fontColor, "font-family": fontfamily, "font-size": fontsize});
+			
+			textArray[2] = paper.text(camera_plane_width/2+10, camera_plane_height-10, "+Z");
+			textArray[2].attr({fill: fontColor, "font-family": fontfamily, "font-size": fontsize});
+			
+			textArray[3] = paper.text(camera_plane_width/2+10, 11, "-Z");
+			textArray[3].attr({fill: fontColor, "font-family": fontfamily, "font-size": fontsize});
+			
+			currentValueX = parseFloat(sceneCamera.getLocX())*diffCamX;
+			currentValueY = parseFloat(sceneCamera.getLocZ())*diffCamY;
+			
+			circle = paper.circle(currentValueX + camera_plane_width/2 , (currentValueY + camera_plane_height/2+5), 5);
+			circleEye = paper.circle(currentValueX + camera_plane_width/2 + circleEyeRadius*Math.cos(parseFloat(-sceneCamera.getRotY())-Math.PI/2) ,
+			 					   (currentValueY + camera_plane_height/2+5) + circleEyeRadius*Math.sin(parseFloat(-sceneCamera.getRotY())-Math.PI/2), 
+			 					     circleEyeOwnRadius);
+			
+			cameraArray[2] = circle;
+			cameraEyeArray[2] = circleEye;
+		}
+	
+		
+		circle.attr({fill: "#f00", stroke: "#f00", "fill-opacity": 0, "stroke-width": 2, cursor: "move"});
+		boxRect.attr({fill: "#00f", stroke: "#00f", "fill-opacity": 0, "stroke-width": 2, cursor: "move"});
+		
+		xyzCamPosition = "(" + roundNumber(parseFloat(sceneCamera.getLocX()), 2) + ", " + roundNumber(parseFloat(sceneCamera.getLocY()), 2) + ", " + roundNumber(parseFloat(sceneCamera.getLocZ()), 2) + ")";
+		$( "#xyz-axis-cam-value" ).val(xyzCamPosition);
+	
+		var dragger = function () {
+			        this.ox =  this.attr("cx");
+			        this.oy =  this.attr("cy");
+			        this.animate({"fill-opacity": .7}, 500);
+			    },
+
+		move = function (dx, dy) {
+			
+					var sign;
+					var cameraRotXCos;
+					
+					var nowX, nowY;
+					var radius = circle.attr('r');
+				
+					nowX = Math.max(0 + radius, this.ox + dx);
+				 	nowY = Math.max(0 + radius, this.oy + dy);
+			    	
+					nowX = Math.min(camera_plane_width - radius, nowX);
+				    nowY = Math.min(camera_plane_height  - radius, nowY);    
+				
+			        var att = {cx: nowX, cy: nowY };
+			        this.attr(att);
+					
+					if(currentCanvasID == "camera-xy-plane-canvas"){
+						currentValueX = (nowX - camera_plane_width/2)/diffCamX;
+						currentValueY = -(nowY - camera_plane_height/2-5)/diffCamY;
+						
+						circleEye.attr({'cx': nowX+ 0*Math.cos(parseFloat(-sceneCamera.getRotZ())), 
+							     'cy': nowY+ 0*Math.sin(parseFloat(-sceneCamera.getRotZ()))});
+						
+						sceneCamera.setLocX(currentValueX);
+						sceneCamera.setLocY(currentValueY);
+						set2DCameraPosition(1, 2);
+						
+					}else if(currentCanvasID == "camera-yz-plane-canvas"){
+						currentValueX = -(nowX - camera_plane_width/2)/diffCamX;
+						currentValueY = -(nowY - camera_plane_height/2-5)/diffCamY;
+						
+						sign = 1;
+						cameraRotXCos = Math.cos(parseFloat(sceneCamera.getRotY()));
+						
+						
+						circleEye.attr({'cx': nowX+ circleEyeRadius*cameraRotXCos*Math.cos(sign*parseFloat(-sceneCamera.getRotX())), 
+							     'cy': nowY+ circleEyeRadius*cameraRotXCos*Math.sin(sign*parseFloat(-sceneCamera.getRotX()))});
+						
+						sceneCamera.setLocZ(currentValueX);
+						sceneCamera.setLocY(currentValueY);
+						set2DCameraPosition(0, 2);
+						
+					}else if(currentCanvasID == "camera-zx-plane-canvas"){
+						currentValueX = (nowX - camera_plane_width/2)/diffCamX;
+						currentValueY = (nowY - camera_plane_height/2-5)/diffCamY;
+						
+						sign = 1;
+						cameraRotXCos = Math.cos(parseFloat(sceneCamera.getRotX()));
+						if(cameraRotXCos<0.000){
+							sign = -1;
+						}
+						
+						circleEye.attr({'cx': nowX+ circleEyeRadius*cameraRotXCos*Math.cos(sign*parseFloat(-sceneCamera.getRotY())-Math.PI/2), 
+							     'cy': nowY+ circleEyeRadius*cameraRotXCos*Math.sin(sign*parseFloat(-sceneCamera.getRotY())-Math.PI/2)});
+							     
+						
+						sceneCamera.setLocX(currentValueX);
+						sceneCamera.setLocZ(currentValueY);
+						set2DCameraPosition(0, 1);
+					}
+					
+					xyzCamPosition = "(" + roundNumber(parseFloat(sceneCamera.getLocX()), 2) + ", " + roundNumber(parseFloat(sceneCamera.getLocY()), 2) + ", " + roundNumber(parseFloat(sceneCamera.getLocZ()), 2) + ")";
+					$( "#xyz-axis-cam-value" ).val(xyzCamPosition);
+				
+				
+		},
+			
+		up = function () {
+			    this.animate({"fill-opacity": 0}, 1000);
+				
+		};
+		circle.drag(move, dragger, up);
+
+	}
+	
+	function set2DCameraPosition(cameraIndex1, cameraIndex2){
+		
+		calc2DCameraPosition(cameraIndex1);
+		calc2DCameraPosition(cameraIndex2);
+	}
+	
+	function calc2DCameraPosition(cameraIndex){
+		var currentValueX;
+		var currentValueY;
+		
+		var currentAngleX;
+		var currentAngleY;
+		
+		var cameraRotXCos;
+		var sign;
+		
+		switch(cameraIndex){
+			case 0:
+				currentValueX = parseFloat(sceneCamera.getLocX())*diffCamX;
+				currentValueY = parseFloat(sceneCamera.getLocY())*diffCamY;
+				cameraArray[cameraIndex].attr({'cx': (currentValueX + camera_plane_width/2), 'cy': -(currentValueY - camera_plane_height/2-5)});
+
+				cameraEyeArray[cameraIndex].attr({'cx': (currentValueX + camera_plane_width/2)+ 0,
+							                'cy': -(currentValueY - camera_plane_height/2-5)+ 0});
+			break;
+			
+			case 1:
+				currentValueX = parseFloat(sceneCamera.getLocZ())*diffCamX;
+				currentValueY = parseFloat(sceneCamera.getLocY())*diffCamY;
+				cameraArray[cameraIndex].attr({'cx': -(currentValueX - camera_plane_width/2), 'cy': -(currentValueY - camera_plane_height/2-5)});
+				
+				sign = 1;
+				cameraRotXCos = Math.cos(parseFloat(sceneCamera.getRotY()));
+				
+				
+				currentAngleX = circleEyeRadius * cameraRotXCos * Math.cos(sign*parseFloat(-sceneCamera.getRotX()));
+				currentAngleY = circleEyeRadius * cameraRotXCos * Math.sin(sign*parseFloat(-sceneCamera.getRotX()));
+				
+				cameraEyeArray[cameraIndex].attr({'cx': -(currentValueX - camera_plane_width/2)+ currentAngleX,
+						                'cy': -(currentValueY - camera_plane_height/2-5)+ currentAngleY});
+			break;
+			
+			case 2:
+				currentValueX = parseFloat(sceneCamera.getLocX())*diffCamX;
+				currentValueY = parseFloat(sceneCamera.getLocZ())*diffCamY;
+				cameraArray[cameraIndex].attr({'cx': (currentValueX + camera_plane_width/2), 'cy': (currentValueY + camera_plane_height/2+5)});
+				
+				sign = 1;
+				cameraRotXCos = Math.cos(parseFloat(sceneCamera.getRotX()));
+				if(cameraRotXCos<0.000){
+					sign = -1;
+				}
+				
+				currentAngleX = circleEyeRadius * cameraRotXCos * Math.cos((sign*parseFloat(-sceneCamera.getRotY())-Math.PI/2));
+				currentAngleY =  circleEyeRadius * cameraRotXCos * Math.sin((sign*parseFloat(-sceneCamera.getRotY())-Math.PI/2));
+				
+				cameraEyeArray[cameraIndex].attr({'cx': (currentValueX + camera_plane_width/2)+ currentAngleX,
+							   'cy': (currentValueY + camera_plane_height/2+5)+ currentAngleY});
+			break;
+		}
+		
+	}
+	
+	function calc2DCameraRotation(cameraIndex){
+		var currentValueX;
+		var currentValueY;
+		
+		var currentAngleX;
+		var currentAngleY;
+		
+		var cameraRotXCos;
+		var sign;
+		
+		switch(cameraIndex){
+			case 0:
+				currentValueX = parseFloat(sceneCamera.getLocX())*diffCamX;
+				currentValueY = parseFloat(sceneCamera.getLocY())*diffCamY;
+			break;
+			
+			case 1:
+				currentValueX = parseFloat(sceneCamera.getLocZ())*diffCamX;
+				currentValueY = parseFloat(sceneCamera.getLocY())*diffCamY;
+				
+				sign = 1;
+				cameraRotXCos = Math.cos(parseFloat(sceneCamera.getRotY()));
+				
+
+				currentAngleX = circleEyeRadius * cameraRotXCos * Math.cos(sign*parseFloat(-sceneCamera.getRotX()));
+				currentAngleY = circleEyeRadius * cameraRotXCos * Math.sin(sign*parseFloat(-sceneCamera.getRotX()));
+				
+				cameraEyeArray[cameraIndex].attr({'cx': -(currentValueX - camera_plane_width/2)+ currentAngleX,
+							   'cy': -(currentValueY - camera_plane_height/2-5)+ currentAngleY});
+			break;
+			
+			case 2:
+				currentValueX = parseFloat(sceneCamera.getLocX())*diffCamX;
+				currentValueY = parseFloat(sceneCamera.getLocZ())*diffCamY;
+				
+				sign = 1;
+				cameraRotXCos = Math.cos(parseFloat(sceneCamera.getRotX()));
+				if(cameraRotXCos<0.000){
+					sign = -1;
+				}
+				
+				currentAngleX = circleEyeRadius * cameraRotXCos * Math.cos((sign*parseFloat(-sceneCamera.getRotY())-Math.PI/2));
+				currentAngleY =  circleEyeRadius * cameraRotXCos * Math.sin((sign*parseFloat(-sceneCamera.getRotY())-Math.PI/2));
+				
+				cameraEyeArray[cameraIndex].attr({'cx': (currentValueX + camera_plane_width/2)+ currentAngleX,
+							   'cy': (currentValueY + camera_plane_height/2+5)+ currentAngleY});
+			break;
+		}
+	}
+	
+	
+	function resetCamera(){
+		sceneCamera.setLocX(0);
+		sceneCamera.setLocY(0);
+		sceneCamera.setLocZ(20);
+		
+		sceneCamera.setRotX(0);
+		sceneCamera.setRotY(0);
+		sceneCamera.setRotZ(0);
+		
+		calc2DCameraPosition(0);
+		calc2DCameraPosition(1);
+		calc2DCameraPosition(2);
+		
+		calc2DCameraRotation(0);
+		calc2DCameraRotation(1);
+		calc2DCameraRotation(2);
+		
+		var xyzCamPosition = "(" + roundNumber(parseFloat(sceneCamera.getLocX()), 2) + ", " + roundNumber(parseFloat(sceneCamera.getLocY()), 2) + ", " + roundNumber(parseFloat(sceneCamera.getLocZ()), 2) + ")";
+		$( "#xyz-axis-cam-value" ).val(xyzCamPosition);
+		
+		$('#xrotcameraslider').slider("value", parseFloat(sceneCamera.getRotX()*180.0/Math.PI));
+		$( "#x-axis-cam-rot-label" ).val($( "#xrotcameraslider" ).slider( "value" ) + " Deg");
+
+		$('#yrotcameraslider').slider("value", parseFloat(sceneCamera.getRotY()*180.0/Math.PI));
+		$( "#y-axis-cam-rot-label" ).val($( "#yrotcameraslider" ).slider( "value" ) + " Deg");
+				
+		$('#zrotcameraslider').slider("value", parseFloat(sceneCamera.getRotZ()*180.0/Math.PI));
+		$( "#z-axis-cam-rot-label" ).val($( "#zrotcameraslider" ).slider( "value" ) + " Deg");
+	}
+	
+	function resetObject(){
+	
+		angleX = 45;
+		angleY = 45;
+	
+		meshObject.setScaleX(3.00);
+		meshObject.setScaleY(3.00);
+		meshObject.setScaleZ(3.00);
+		
+		$('#xscaleslider').slider("value", parseFloat(meshObject.getScaleX()));
+		$( "#x-axis-scale" ).val($( "#xscaleslider" ).slider( "value" ));
+
+		$('#yscaleslider').slider("value", parseFloat(meshObject.getScaleY()));
+		$( "#y-axis-scale" ).val($( "#yscaleslider" ).slider( "value" ));
+				
+		$('#zscaleslider').slider("value", parseFloat(meshObject.getScaleZ()));
+		$( "#z-axis-scale" ).val($( "#zscaleslider" ).slider( "value" ));
+	
+		meshObject.setRotX(45.0*Math.PI/180);
+		meshObject.setRotY(45.0*Math.PI/180);
+		meshObject.setRotZ(0.0*Math.PI/180);
+		
+		$('#xrotslider').slider("value", parseFloat(meshObject.getRotX()*180.0/Math.PI));
+		$( "#x-axis-rot" ).val($( "#xrotslider" ).slider( "value" ) + " Deg");
+
+		$('#yrotslider').slider("value", parseFloat(meshObject.getRotY()*180.0/Math.PI));
+		$( "#y-axis-rot" ).val($( "#yrotslider" ).slider( "value" ) + " Deg");
+				
+		$('#zrotslider').slider("value", parseFloat(meshObject.getRotZ()*180.0/Math.PI));
+		$( "#z-axis-rot" ).val($( "#zrotslider" ).slider( "value" ) + " Deg");
+	}
+	
+	function roundNumber(number, decimals) {
+		var newnumber = new Number(number+'').toFixed(parseInt(decimals));
+		return newnumber;
+	}
+
+	</script>
+	
+    </head>
+			
+    <body>		
+			
+<div align="center">
+	<table class="bordered">
+		<tbody>
+			<tr>	
+				<td width="50%" height="100%">
+					<div id="canvas-div" align="center" class="box_shadow_border">
+						<canvas id="canvas" width="540" height="530"></canvas>
+					</div>
+				</td>
+				<td width="50%" height="100%">
+					<div id="control-div" align="center" class="box_shadow_border">
+					<div id="demo-frame">
+					<div id="tabs" align="center">
+						<ul>
+							<li><a href="#tabs-2">Camera</a></li>
+							<li><a href="#tabs-3">Texture</a></li>
+							<li><a href="#tabs-4">Lighting</a></li>
+							<li><a href="#tabs-5">Operation</a></li>
+							<li><a href="#tabs-6">About</a></li>
+						</ul>
+						
+						<div id="tabs-2" align="left">
+							Camera Position&nbsp;<a href="#" class="fixedTip" title="Drag the red circle to change the camera position in below 2D planes.
+							<br>Black spot with red circle is camera view direction."><img src="api/atooltip/images/help-icon.png"></a>&nbsp;:(X, Y, Z) = <input type="text" id="xyz-axis-cam-value" style="border:0; color:#f6931f; font-weight:bold;" />
+							<br><br>
+							<div id="accordion">
+								<h3><a href="#xy-plane-cam" class="normalTip" title="In this plane, camera view direction is on front sided or behind the camera.<br>Camera rotation is not identically visible in this plane."><b>X-Y Plane (Front View):</b>&nbsp;&nbsp;<img src="api/atooltip/images/help-icon.png"></a></h3>
+								<div>
+									<div id="camera-xy-plane-canvas" class="box_shadow_border"></div>
+								</div>
+					
+								<h3><a href="#yz-plane-cam" class="normalTip" title="In this plane, If black spot(camera view direction) is inside the red circle, then user cannot view centered object from any direction.
+										<br><br>Please keep black spot(camera view direction) out side the red circle to view the object.<br>For keeping black spot out side the red circle, Rotate the camera."><b>Y-Z Plane (Right Sided View):</b>&nbsp;&nbsp;<img src="api/atooltip/images/help-icon.png"></a></h3>
+								<div>
+									<div id="camera-yz-plane-canvas" class="box_shadow_border"></div>
+								</div>
+								
+								<h3><a href="#zx-plane-cam" class="normalTip" title="In this plane, If black spot(camera view direction) is inside the red circle, then user cannot view centered object from any direction.
+										<br><br>Please keep black spot(camera view direction) out side the red circle to view the object.<br>For keeping black spot out side the red circle, Rotate the camera."><b>Z-X Plane (Top View):</b>&nbsp;&nbsp;<img src="api/atooltip/images/help-icon.png"></a></h3>
+								<div>
+									<div id="camera-zx-plane-canvas" class="box_shadow_border"></div>
+								</div>
+								
+								<h3><a href="#xyz-Cam-Rotation" class="normalTip" title="After setting rotation values nearer to 0 Deg, 180 Deg, 270 Deg and 360 Deg for X-Axis camera rotation, It will keep black spot(camera view direction) out side the red circle in Z-X Plane(Top View).<br><br>
+										After setting rotation values nearer to 0 Deg, 180 Deg, 270 Deg and 360 Deg for Y-Axis camera rotation, It will keep black spot(camera view direction) out side the red circle in Y-Z Plane(Right Sided View)."><b>Camera Rotation:</b>&nbsp;&nbsp;<img src="api/atooltip/images/help-icon.png"></a></h3>
+								<div>
+									<p>
+										<label for="x-axis-cam-rotation">X-Axis: </label>
+										<input type="text" id="x-axis-cam-rot-label" style="border:0; color:#f6931f; font-weight:bold;" />
+									</p><div id="xrotcameraslider" ></div>
+		
+									<br>
+									<p>
+										<label for="y-axis-cam-rotation">Y-Axis: </label>
+										<input type="text" id="y-axis-cam-rot-label" style="border:0; color:#f6931f; font-weight:bold;" />
+									</p><div id="yrotcameraslider" ></div>
+									
+									<br>
+									<p>
+										<label for="z-axis-cam-rotation">Z-Axis: </label>
+										<input type="text" id="z-axis-cam-rot-label" style="border:0; color:#f6931f; font-weight:bold;" />
+									</p><div id="zrotcameraslider" ></div>
+								</div>
+							</div>
+							<div class="reset_Camera" style="margin-top:8px">
+								<button>Reset Camera</button>
+							</div>
+							<div class="reset_Object" style="margin-top:8px">
+								<button>Reset Object</button>
+							</div>
+						</div>
+						
+						<div id="tabs-3" align="left">
+						<div id="accordionTexture">
+							<h3><a href="#texture-sec"><b>Choose Texture:</b></a></h3>
+							<div>
+							<p>
+							<ol id="selectable">
+								<li class="ui-state-default" id="boxmaterial"><img src="texture/Wall_TH.jpg" width="95" height="80"></li>
+								<li class="ui-state-default" id="brickmaterial"><img src="texture/Brick_TH.jpg" width="95" height="80" ></li>
+								<li class="ui-state-default" id="brownmaterial"><img src="texture/Brown_TH.jpg" width="95" height="80" ></li>
+								<li class="ui-state-default" id="greenstonematerial"><img src="texture/GreenStone_TH.jpg" width="95" height="80" ></li>
+								<li class="ui-state-default" id="greymaterial"><img src="texture/Grey_TH.jpg" width="95" height="80"></li>
+								<li class="ui-state-default" id="greystonematerial"><img src="texture/GreyStone_TH.jpg" width="95" height="80" ></li>
+								<li class="ui-state-default" id="marblestonematerial"><img src="texture/Marbledstones_TH.jpg" width="95" height="80"></li>
+								<li class="ui-state-default" id="whitetilematerial"><img src="texture/WhiteTileFloor_TH.jpg" width="95" height="80" ></li>
+								<li class="ui-state-default" id="woodtilematerial"><img src="texture/Woodtiles_TH.jpg" width="95" height="80"></li>
+							</ol>
+							</p>
+							</div>
+						</div>
+						</div>
+						
+						<div id="tabs-4" align="left">
+						<div class="sectionBox">
+								<b>Environment Properties:</b>
+								<br>
+								<br>
+								<br>
+								Ambient Light Color: <input id="ambientLightcolor" class="color" value="ffffff" onchange="updateAmbientLight(this.color.toString())" style="width:65px">
+								<br>
+								<br><br><input type='checkbox' onchange='setRoomVisibility(this.checked)'> Background Color:&nbsp;<a href="#" class="fixedTip" title="After enabling background color, room walls will be hidden."><img src="api/atooltip/images/help-icon.png"></a>&nbsp;&nbsp;<input id="backGroundcolor" class="color" value="ffffff" onchange="updateBackGroundColor(this.color.toString())" disabled style="width:65px">
+							<br>
+						</div>
+						<br>
+						<br>
+						<br>
+						<div class="sectionBox">
+							<b>Spot Light Properties:</b>
+							<br>
+							<br><br>
+							<input type='checkbox' onchange='enableSpotLight(this.checked, "toplightcolor", 1)' checked=""> Top Light Color: <input id="toplightcolor" class="color" value="ffffff" onchange="updateSpotLight(this.color.toString(), 1)" style="width:65px">
+							<br>
+							<br><br>
+							<input type='checkbox' onchange='enableSpotLight(this.checked, "frontlightcolor", 2)' checked=""> Front Light Color: <input id="frontlightcolor" class="color" value="ffffff" onchange="updateSpotLight(this.color.toString(), 2)" style="width:65px">
+							<br><br>
+							<br>
+							<input type='checkbox' onchange='enableSpotLight(this.checked, "rightlightcolor", 0)' checked=""> Right Light Color: <input id="rightlightcolor" class="color" value="ffffff" onchange="updateSpotLight(this.color.toString(), 0)" style="width:65px"><br>
+						</div>
+					</div>
+						
+						<div id="tabs-5" align="left">
+							<div class="sectionBox"><p style="margin: -10px auto;"><b>Scaling Operation:</b></p>
+								<br>
+								<p>
+									<label for="x-axis">X-Axis: </label>
+									<input type="text" id="x-axis-scale" style="border:0; color:#f6931f; font-weight:bold;" />				
+									<div id="xscaleslider"></div>
+									</p><br>
+									<p>
+									
+										<label for="y-axis">Y-Axis: </label>
+										<input type="text" id="y-axis-scale" style="border:0; color:#f6931f; font-weight:bold;" />
+										
+										
+									<div id="yscaleslider" ></div>
+									</p>
+									<br>
+									<p>
+									
+										<label for="z-axis">Z-Axis: </label>
+										<input type="text" id="z-axis-scale" style="border:0; color:#f6931f; font-weight:bold;" />
+										
+									
+									<div id="zscaleslider"></div>
+									</p>
+							
+						</div>
+						<br>
+						<div class="sectionBox">
+						<p style="margin: -10px auto;"><b>Rotation Operation:</b>&nbsp;&nbsp;<a href="#" class="normalTip" title="For manual object rotation, drag the mouse on left sided 3D rendering area."><img src="api/atooltip/images/help-icon.png"></a></p>
+							<br>
+							<p>
+									<label for="x-axis">X-Axis: </label>
+									<input type="text" id="x-axis-rot" style="border:0; color:#f6931f; font-weight:bold;" />
+								
+									<div id="xrotslider"></div>
+									</p><br>
+									<p>
+										<label for="y-axis">Y-Axis: </label>
+										<input type="text" id="y-axis-rot" style="border:0; color:#f6931f; font-weight:bold;" />
+								
+									<div id="yrotslider" ></div>
+									</p>
+									<br>
+									<p>
+										<label for="z-axis">Z-Axis: </label>
+										<input type="text" id="z-axis-rot" style="border:0; color:#f6931f; font-weight:bold;" />
+									<div style="margin-bottom:16px">
+										<div id="zrotslider" ></div>
+									</div>
+									
+								</p>
+						
+							</div>
+						</div>
+						<div id="tabs-6" align="left">
+							<div id="accordionAboutMe">
+								<h3><a href="#sec-about-myself"><b>About Myself:</b></a></h3>
+								<div>
+									<div class="sectionBox">My self is Samir Solanki. I work as iOS developer in India. I like to explore and use new open source technologies and personally like to explore science, mythology, soul and spirituality areas also.
+										<br><br>I like to know your reviews or any bugs in comments. I will add more 3D objects and some new features in next version.
+										<br><br>Feel free to use this code for learning purpose only.
+										<br><br>Thank you for visiting this WebGL Demo.<br>
+									</div><br>
+								</div>
+								
+								<h3><a href="#sec-used-api"><b>Follow Me On:</b></a></h3>
+								<div>
+									<div class="sectionBox">
+										<a href="https://plus.google.com/111361387253458712516" target="_blank">Google+</a><br><br>
+										<a href="https://www.facebook.com/solanki.samir" target="_blank">FaceBook</a><br><br>
+										<a href="https://twitter.com/isamsol8" target="_blank">Twitter</a><br><br>
+										<a href="http://www.linkedin.com/profile/view?id=102752116" target="_blank">Linkedin</a><br><br>
+										<a href="http://samsol3diphone.blogspot.in/p/about-me-more.html" target="_blank">More About Me</a><br><br>
+										<a href="http://myspiritualfeelings.blogspot.in/2012/10/thoughts-felt-in-my-life.html" target="_blank">My Thoughts</a><br>
+									</div><br>
+								</div>
+								<h3><a href="#sec-used-api"><b>Used Open Source API/Library/Images:</b></a></h3>
+								<div>
+									<div class="sectionBox">
+										<a href="http://www.glge.org/" target="_blank">GLGE WebGL Library</a><br><br>
+										<a href="http://raphaeljs.com/" target="_blank">Raphael - JavaScript Library</a><br><br>
+										<a href="http://jqueryui.com/" target="_blank">JQuery UI</a><br><br>
+										<a href="http://ara-abcarians.com/jquery/atooltip/" target="_blank">aToolTip - a simple jQuery tooltip</a><br><br>
+										<a href="http://jscolor.com/" target="_blank">JSColor - Javascript/HTML Color Picker</a><br><br>
+										<a href="http://www.backgroundlabs.com" target="_blank">Background Labs</a><br>
+									</div><br>
+								</div>
+							</div>
+					</div>
+				</td>
+			</tr>
+		</tbody>
+	</table><br><br>	
+		<header>3D Modeling - Overview of 3D Graphics</header>
+</div>
+    </body>
+</html>

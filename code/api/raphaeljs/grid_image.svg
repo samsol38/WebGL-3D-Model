@@ -1,0 +1,14 @@
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+width='410px' height='180px'>
+
+<g id="grid" stroke="lightblue">
+  <line x1="1" y1="0" x2="410" y2="0" style="stroke-dasharray:1,10,1,0;stroke-width:820px;"/>
+ <line x1="0" y1="-1" x2="0" y2="410" style="stroke-dasharray:1,10,1,0;stroke-width:820px;"/>
+	
+ <line x1="0" y1="205" x2="410" y2="205" style="stroke-dasharray:2,201,2,0;  stroke-width:410px;"/>
+ <line x1="90" y1="0" x2="90" y2="410" style="stroke-dasharray:2,91,2,0;  stroke-width:820px;"/>
+</g>
+</svg>

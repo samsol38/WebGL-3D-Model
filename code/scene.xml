@@ -1,0 +1,75 @@
+<?xml version="1.0" ?>
+<glge>
+	<mesh id="Box">
+		<positions>1.000000,0.999999,1.000000,1.000000,1.000000,-1.000000,-1.000000,1.000000,-1.000000,1.000000,0.999999,1.000000,-1.000000,1.000000,-1.000000,-1.000000,1.000000,1.000000,-1.000000,-1.000000,-1.000000,-1.000000,-1.000000,1.000000,-1.000000,1.000000,1.000000,-1.000000,-1.000000,-1.000000,-1.000000,1.000000,1.000000,-1.000000,1.000000,-1.000000,1.000000,-1.000000,-1.000000,0.999999,-1.000001,1.000000,-1.000000,-1.000000,-1.000000,0.999999,-1.000001,1.000000,-1.000000,-1.000000,1.000000,-1.000000,-1.000000,-1.000000,1.000000,1.000000,-1.000000,1.000000,0.999999,1.000000,1.000000,-1.000000,-1.000000,1.000000,0.999999,1.000000,0.999999,-1.000001,1.000000,1.000000,-1.000000,-1.000000,1.000000,0.999999,1.000000,-1.000000,1.000000,1.000000,0.999999,-1.000001,1.000000,-1.000000,1.000000,1.000000,-1.000000,-1.000000,1.000000,0.999999,-1.000001,1.000000,1.000000,1.000000,-1.000000,1.000000,-1.000000,-1.000000,-1.000000,-1.000000,-1.000000,1.000000,1.000000,-1.000000,-1.000000,-1.000000,-1.000000,-1.000000,1.000000,-1.000000</positions>
+		<normals>0.000000,1.000000,0.000000,0.000000,1.000000,0.000000,0.000000,1.000000,0.000000,0.000000,1.000000,0.000000,0.000000,1.000000,0.000000,0.000000,1.000000,0.000000,-1.000000,0.000000,-0.000000,-1.000000,0.000000,-0.000000,-1.000000,0.000000,-0.000000,-1.000000,0.000000,-0.000000,-1.000000,0.000000,-0.000000,-1.000000,0.000000,-0.000000,-0.000000,-1.000000,-0.000000,-0.000000,-1.000000,-0.000000,-0.000000,-1.000000,-0.000000,-0.000000,-1.000000,0.000000,-0.000000,-1.000000,0.000000,-0.000000,-1.000000,0.000000,1.000000,0.000000,-0.000000,1.000000,0.000000,-0.000000,1.000000,0.000000,-0.000000,1.000000,-0.000001,0.000000,1.000000,-0.000001,0.000000,1.000000,-0.000001,0.000000,-0.000000,-0.000000,1.000000,-0.000000,-0.000000,1.000000,-0.000000,-0.000000,1.000000,0.000000,-0.000000,1.000000,0.000000,-0.000000,1.000000,0.000000,-0.000000,1.000000,0.000000,0.000000,-1.000000,0.000000,0.000000,-1.000000,0.000000,0.000000,-1.000000,0.000000,-0.000000,-1.000000,0.000000,-0.000000,-1.000000,0.000000,-0.000000,-1.000000</normals>
+		<uv1>0.333333,0.498471,0.001020,0.500000,0.000000,0.001529,0.333333,0.498471,0.000000,0.001529,0.332314,0.000000,0.000000,0.998471,0.001020,0.500000,0.333333,0.501529,0.000000,0.998471,0.333333,0.501529,0.332314,1.000000,0.665647,0.500000,0.666667,0.998471,0.333333,0.501529,0.666667,0.998471,0.334353,1.000000,0.333333,0.501529,0.998981,0.000000,1.000000,0.498471,0.666667,0.001529,1.000000,0.498471,0.667686,0.500000,0.666667,0.001529,1.000000,0.501529,0.998981,1.000000,0.667686,0.500000,0.998981,1.000000,0.666667,0.998471,0.667686,0.500000,0.334353,0.500000,0.333333,0.001529,0.665647,0.000000,0.334353,0.500000,0.665647,0.000000,0.666667,0.498471</uv1>
+		<faces>0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35</faces>
+	</mesh>
+					
+	<camera id="maincamera" loc_z="20" />
+	
+	<material id="boxmaterial">
+		<texture id="boxtexture" src="texture/Wall_TH.jpg" />
+		<material_layer texture="#boxtexture" mapinput="UV1" mapto="M_COLOR" />
+	</material>
+	
+	<material id="brickmaterial">
+		<texture id="bricktexture" src="texture/Brick_TH.jpg" />
+		<material_layer texture="#bricktexture" mapinput="UV1" mapto="M_COLOR" />
+	</material>
+	
+	<material id="brownmaterial">
+		<texture id="browntexture" src="texture/Brown_TH.jpg" />
+		<material_layer texture="#browntexture" mapinput="UV1" mapto="M_COLOR" />
+	</material>
+	
+	<material id="greenstonematerial">
+		<texture id="greenstonetexture" src="texture/GreenStone_TH.jpg" />
+		<material_layer texture="#greenstonetexture" mapinput="UV1" mapto="M_COLOR" />
+	</material>
+	
+	<material id="greymaterial">
+		<texture id="greytexture" src="texture/Grey_TH.jpg" />
+		<material_layer texture="#greytexture" mapinput="UV1" mapto="M_COLOR" />
+	</material>
+	
+	<material id="greystonematerial">
+		<texture id="greystonetexture" src="texture/GreyStone_TH.jpg" />
+		<material_layer texture="#greystonetexture" mapinput="UV1" mapto="M_COLOR" />
+	</material>
+	
+	<material id="marblestonematerial">
+		<texture id="marblestonetexture" src="texture/Marbledstones_TH.jpg" />
+		<material_layer texture="#marblestonetexture" mapinput="UV1" mapto="M_COLOR" />
+	</material>
+	
+	<material id="whitetilematerial">
+		<texture id="whitetiletexture" src="texture/WhiteTileFloor_TH.jpg" />
+		<material_layer texture="#whitetiletexture" mapinput="UV1" mapto="M_COLOR" />
+	</material>
+	
+	<material id="woodtilematerial">
+		<texture id="woodtiletexture" src="texture/Woodtiles_TH.jpg" />
+		<material_layer texture="#woodtiletexture" mapinput="UV1" mapto="M_COLOR" />
+	</material>
+	
+	<material id="wallmaterial" specular="0.5">
+		<texture id="wallcolour" src="texture/Wall_TH.jpg" />
+		<material_layer texture="#wallcolour" mapinput="UV1" mapto="M_COLOR" scale_x="4" scale_y="4" />
+	</material>
+	
+	<material id="wallmaterialMain" specular="0.5">
+		<texture id="wallcolourMain" src="texture/Wall_TH.jpg" />
+		<material_layer texture="#wallcolourMain" mapinput="UV1" mapto="M_COLOR" scale_x="15" scale_y="15" />
+	</material>
+	
+	
+	<scene id="mainscene" camera="#maincamera" ambient_color="#fff" background_color='transparent'>
+		<light id="mainlightx" loc_x="6" type="L_POINT"/>
+		<light id="mainlighty" loc_y="5" type="L_POINT" />
+		<light id="mainlightz" loc_z="8" type="L_POINT" />
+		<object id="box" mesh="#Box" scale_x="3" scale_y="3" scale_z="3" material="#woodtilematerial" />
+		<object id="wallobject" mesh="#Box" scale_x="80" scale_y="80" scale_z="80" material="#wallmaterialMain" />
+	</scene>
+</glge>
