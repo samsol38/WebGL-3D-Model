@@ -23,3 +23,5 @@ This demo is useful to study 3D graphics basic concepts, properties and operatio
 <img src="http://www.techjini.com/blog/wp-content/uploads/2013/04/webgl_Demo_1.png">
 <br><br>
 <img src="http://www.techjini.com/blog/wp-content/uploads/2013/04/webgl_Demo_3.png">
+<br><br>
+-<a href="http://www.techjini.com/blog/author/samir/">Samir Solanki</a>
