@@ -14,7 +14,7 @@ This demo is useful to study 3D graphics basic concepts, properties and operatio
 -Object scaling & rotation
 <br>
 <br>
-<b>Online Demo</b>:  <a href="http://webgl3dmodel.tk">webgl3dmodel.tk</a> 
+<b>Online Demo</b>:  <a href="http://webgl3dmodel.tk" target="_blank">webgl3dmodel.tk</a> 
 <br>Please open this demo on Chrome browser for better performance.
 <br>
 <br>
@@ -26,4 +26,4 @@ This demo is useful to study 3D graphics basic concepts, properties and operatio
 <br><br>
 <img src="http://www.techjini.com/blog/wp-content/uploads/2013/04/webgl_Demo_3.png">
 <br>
--<a href="http://www.techjini.com/blog/author/samir/">Samir Solanki</a>
+-<a href="http://www.techjini.com/blog/author/samir/" target="_blank">Samir Solanki</a>
