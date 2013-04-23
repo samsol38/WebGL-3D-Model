@@ -15,7 +15,7 @@ This demo is useful to study 3D graphics basic concepts, properties and operatio
 <br>
 <br>
 <b>Online Demo</b>:  <a href="http://webgl3dmodel.tk">webgl3dmodel.tk</a> 
-<br>Please try this demo on Chrome browser for better performance.
+<br>Please open this demo on Chrome browser for better performance.
 <br>
 <br>
 <b>Screenshots</b>:
