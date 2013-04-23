@@ -12,3 +12,11 @@ Demo contains following features:
 -Environment & Spot lighting
 <br>
 -Object scaling & rotation
+<br>
+<br>
+Screenshots:
+<img src="http://www.techjini.com/blog/wp-content/uploads/2013/04/webgl_Demo_2.png">
+<br><br>
+<img src="http://www.techjini.com/blog/wp-content/uploads/2013/04/webgl_Demo_1.png">
+<br><br>
+<img src="http://www.techjini.com/blog/wp-content/uploads/2013/04/webgl_Demo_3.png">
