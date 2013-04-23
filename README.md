@@ -1,4 +1,4 @@
-WebGL-3D-Model
+WebGL 3D Model Demo
 ==============
 This demo is useful to study 3D graphics basic concepts, properties and operations. 
 <br>User can change various properties and learn 3D concepts like camera movement, texture mapping, lighting and different operations.
